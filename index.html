@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <title>DRF Engineer-in-Residence Coding Challenge</title>
+    <style>
+      body {
+        font: 13px Helvetica, Arial;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>DRF Engineer-in-Residence Coding Challenge</h1>
+
+    <p>We have a fun coding challenge for you to complete! Unlike most coding challenges you might have encountered, we’ve left this one pretty open-ended, so feel free to show off your creativity and interpret it however you like. Keep it short and simple, and don't feel pressured to spend a lot of time on it.</p>
+
+    <h2>Part 1 (required)</h2>
+
+    <p>What's the most creative way you can get a circle to appear on the screen of a web browser?</p>
+
+    <h2>Part 2 (optional)</h2>
+
+    <p>Now extend your demo to be collaborative. How can one user trigger the circle to appear on another user’s browser in some way, and vice versa? You should use our provided server endpoint in your solution by following the instructions below.</p>
+
+    <p>We've set up a basic <a href="https://socket.io/" target="_blank">Socket.IO</a> server at this url (). If you're not familiar with Socket.IO, it's a library for real-time event-based communication, meaning that it lets you easily send messages from one device to another. It comes with a JavaScript client which you can include in your app. Socket.IO communication works using events which you emit to the server and listen for on the client. Each event has a name, which is used to listen for specific types of events, and a body, which is used to include data.</p>
+
+    <p>First, your app needs to join a room by sending a "join" event with a unique key as the body, so that you only get your own broadcasts. Our server will then accept events with the name "message" and then broadcast that event and its body to everything else that's connected.</p>
+
+    <p>Below is a demo to show how this works from the client side. To try it out, open this page in multiple windows, enter the same key in each "room" box, and click "Join Room" in each window. Afterwards, typing and sending a message will cause it to appear in all other windows. Feel free to view the source of this page and copy the code embedded below as a starting point. This demo is also useful for debugging your submission.</p>
+
+    <p>Tips:</p>
+
+    <p>
+      <ul>
+        <li>Remember to "join" using a key unique to you, and use that same key here if you're trying to debug.</li>
+        <li>You can send seralizable JavaScript objects as the body of the message, not just strings as shown here.</li>
+      </ul>
+    </p>
+
+    <form id="join-form" action="">
+      <input name="room" placeholder="Room Name" />
+      <button>Join Room</button>
+    </form>
+
+    <div id="message-body"></div>
+
+    <form id="message-form" action="" style="display: none;">
+      <input name="message" placeholder="Message Body" />
+      <button>Broadcast Message</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>
+      $(function () {
+        var socket = io();
+
+        $('#join-form').submit(function () {
+          var room = this.room.value;
+          socket.emit('join', room);
+
+          $('#message-form').show();
+
+          return false;
+        });
+
+        $('#message-form').submit(function () {
+          var message = this.message.value;
+          socket.emit('message', message);
+          return false;
+        });
+
+        socket.on('message', function (message) {
+          $('#message-body').text(message);
+        });
+      });
+    </script>
+  </body>
+</html>
