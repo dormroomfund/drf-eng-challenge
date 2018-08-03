@@ -49,11 +49,11 @@
 
     <p>Now extend your demo to be collaborative. How can one user trigger the circle to appear on another user’s browser in some way, and vice versa? You should use our provided server endpoint in your solution by following the instructions below.</p>
 
-    <p>We've set up a basic <a href="https://socket.io/" target="_blank">Socket.IO</a> server at this url (). If you're not familiar with Socket.IO, it's a library for real-time event-based communication, meaning that it lets you easily send messages from one device to another. It comes with a JavaScript client which you can include in your app. Socket.IO communication works using events which you emit to the server and listen for on the client. Each event has a name, which is used to listen for specific types of events, and a body, which is used to include data.</p>
+    <p>We've set up a basic <a href="https://socket.io/" target="_blank">Socket.IO</a> server at this same URL. If you're not familiar with Socket.IO, it's a library for real-time event-based communication, meaning that it lets you easily send messages from one device to another. It comes with a JavaScript client which you can include in your app. Socket.IO communication works using events which you emit to the server and listen for on the client. Each event has a name, which is used to listen for specific types of events, and a body, which is used to include data.</p>
 
-    <p>First, your app needs to join a room by sending a "join" event with a unique key as the body, so that you only get your own broadcasts. Our server will then accept events with the name "message" and then broadcast that event and its body to everything else that's connected.</p>
+    <p>Our server lets you broadcast messages to other devices in the same "room". First, your app needs to join a room by sending a "join" event with a unique key as the body, so that you only get your own broadcasts. Our server will then accept events with the name "message" and then broadcast that event and its body to everything else that's connected.</p>
 
-    <p>Below is a demo to show how this works from the client side. To try it out, open this page in multiple windows, enter the same key in each "room" box, and click "Join Room" in each window. After you've joined, typing a message and clicking "broadcast" will cause your message to appear in all other windows. Feel free to view the source of this page and copy the code embedded below as a starting point. This demo is also useful for debugging your submission.</p>
+    <p>Below is a demo to show how this works. To try it out, open this page in multiple windows, enter the same key in each "room" box, and click "Join Room" in each window. After you've joined, typing a message and clicking "broadcast" will cause your message to appear in all other windows. Feel free to view the source of this page and copy the code embedded below as a starting point. This demo is also useful for debugging your submission.</p>
 
     <p>Tips:</p>
 
@@ -61,6 +61,7 @@
       <ul>
         <li>Remember to "join" using a key unique to you, and use that same key here if you're trying to debug.</li>
         <li>You can send seralizable JavaScript objects as the body of the message, not just strings as shown here.</li>
+        <li>Sending a message before joining a room won't work.</li>
         <li>Note how the message you send gets broadcast to other connected devices, but not to yourself.</li>
       </ul>
     </p>
