@@ -10,7 +10,9 @@ io.on('connection', function (socket) {
   var room = null;
 
   socket.on('join', function (msg) {
-    if (room != null) return;
+    if (room != null) {
+      socket.leave(room);
+    }
     room = msg;
     socket.join(room);
   });
