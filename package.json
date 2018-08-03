@@ -2,6 +2,9 @@
   "name": "drf-eng-challenge-2018",
   "version": "0.0.1",
   "description": "Real-time server for the DRF Engineer-in-Residence application challenge",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "socket.io": "^2.1.1"

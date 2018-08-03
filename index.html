@@ -77,23 +77,28 @@
       <button>Broadcast</button>
     </form>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- Load client library from our server -->
+    <script src="https://drf-eng-app-2018.herokuapp.com/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
     <script>
       $(function () {
-        var socket = io();
+        // Connect to Socket.IO server
+        var socket = io('https://drf-eng-app-2018.herokuapp.com/');
 
         $('#join-form').submit(function () {
+          // Emit the "join" event to join a room to share messages
           socket.emit('join', this.room.value);
           return false;
         });
 
         $('#message-form').submit(function () {
+          // Emit the "message" event to send a new message
           socket.emit('message', this.message.value);
           return false;
         });
 
+        // Listen to the "message" event to receive inbound messages
         socket.on('message', function (message) {
           $('#message-body').text(message);
         });
